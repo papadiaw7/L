@@ -1,0 +1,48 @@
+<form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+  <h2>Start Your 30-Day Free Trial</h2>
+  <p>Fill out the form below to authorize Live Shield to protect your streams.</p>
+
+  <!-- Name -->
+  <label for="name">Full Name *</label>
+  <input type="text" id="name" name="name" required>
+
+  <!-- Email -->
+  <label for="email">Email Address *</label>
+  <input type="email" id="email" name="email" required>
+
+  <!-- Channel Link -->
+  <label for="channel">Channel / Stream Link *</label>
+  <input type="url" id="channel" name="channel" placeholder="https://twitch.tv/yourchannel" required>
+
+  <!-- Primary Platform -->
+  <label for="platform">Primary Platform *</label>
+  <select id="platform" name="platform" required>
+    <option value="">Select platform</option>
+    <option value="Twitch">Twitch</option>
+    <option value="YouTube">YouTube</option>
+    <option value="TikTok Live">TikTok Live</option>
+    <option value="Kick">Kick</option>
+    <option value="Other">Other</option>
+  </select>
+
+  <!-- Streaming Frequency -->
+  <label for="frequency">How often do you stream? (optional)</label>
+  <input type="text" id="frequency" name="frequency" placeholder="e.g., 3 times per week">
+
+  <!-- Authorization Checkbox -->
+  <label>
+    <input type="checkbox" name="authorization" required>
+    I confirm that I am the owner or authorized representative of this content and authorize Live Shield to monitor and submit takedown requests on my behalf.
+  </label>
+
+  <!-- Submit -->
+  <button type="submit">Start Free Trial</button>
+
+  <!-- Optional: Formspree honeypot for spam protection -->
+  <input type="text" name="_gotcha" style="display:none">
+  
+  <!-- Redirect or thank you message -->
+  <input type="hidden" name="_next" value="https://live-shield.com/thank-you">
+  <input type="hidden" name="_subject" value="New Live Shield Trial Signup">
+  <input type="hidden" name="_autoresponse" value="Your 30-day Live Shield trial is now active! We will begin monitoring your content for unauthorized rebroadcasts and notify you if we detect any copies.">
+</form>

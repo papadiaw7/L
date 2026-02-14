@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Shield | Real-Time Livestream Protection</title>
+  <meta
+    name="description"
+    content="Live Shield protects creators and brands from stolen livestream content with AI-powered monitoring, rapid takedowns, and transparent reporting."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: #111111;
+      --surface-soft: #171717;
+      --text: #f2f2f2;
+      --muted: #b1b1b1;
+      --accent: #ff4343;
+      --accent-soft: #ff6f6f;
+      --line: #272727;
+      --radius: 16px;
+      --container: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      background: radial-gradient(circle at 10% -10%, #300f0f, transparent 35%), var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(100% - 40px, var(--container));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(6px);
+      background: rgba(5, 5, 5, 0.75);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .header-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+    }
+
+    .brand-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: linear-gradient(145deg, var(--accent), var(--accent-soft));
+      box-shadow: 0 0 20px rgba(255, 67, 67, 0.55);
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .header-nav a:hover {
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: 0.25s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(125deg, var(--accent), var(--accent-soft));
+      color: #fff;
+      padding: 12px 18px;
+      box-shadow: 0 0 25px rgba(255, 67, 67, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 32px rgba(255, 67, 67, 0.5);
+    }
+
+    .btn-secondary {
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text);
+      padding: 12px 18px;
+    }
+
+    .btn-secondary:hover {
+      border-color: #3b3b3b;
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 88px 0;
+    }
+
+    .hero {
+      padding-top: 96px;
+      text-align: center;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid #303030;
+      border-radius: 999px;
+      padding: 8px 14px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 22px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .hero h1 {
+      margin: 0 auto 16px;
+      font-size: clamp(2rem, 4.8vw, 4.3rem);
+      line-height: 1.05;
+      max-width: 960px;
+      letter-spacing: -0.03em;
+      background: linear-gradient(90deg, #ffffff 5%, #ffc3c3 45%, #ff5353 85%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      margin: 0 auto;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: clamp(1rem, 2.1vw, 1.26rem);
+    }
+
+    .hero-actions {
+      margin-top: 34px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .stats {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stat {
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #151515, #0e0e0e);
+      padding: 18px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: clamp(1.4rem, 2.6vw, 2rem);
+      letter-spacing: -0.02em;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .section-head h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      letter-spacing: -0.02em;
+    }
+
+    .section-head p {
+      margin: 0 auto;
+      max-width: 700px;
+      color: var(--muted);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card,
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--surface-soft), #0e0e0e);
+      padding: 22px;
+    }
+
+    .feature-card h3 {
+      margin: 8px 0;
+      font-size: 1.1rem;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      background: #261212;
+      border: 1px solid #4a2020;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .workflow .panel h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.03rem;
+    }
+
+    .workflow .panel p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .quote-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    blockquote {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, #141414, #0f0f0f);
+      padding: 24px;
+    }
+
+    blockquote p {
+      margin: 0 0 18px;
+      color: #dfdfdf;
+    }
+
+    blockquote cite {
+      color: var(--muted);
+      font-style: normal;
+      font-size: 0.93rem;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .pricing-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #101010;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .pricing-card.featured {
+      border-color: #6b2525;
+      box-shadow: 0 0 35px rgba(255, 67, 67, 0.16);
+      background: linear-gradient(180deg, #191111, #0f0f0f);
+    }
+
+    .price {
+      font-size: 1.92rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin: 0;
+    }
+
+    .price small {
+      color: var(--muted);
+      font-size: 0.94rem;
+      font-weight: 500;
+    }
+
+    .pricing-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .faq {
+      max-width: 880px;
+      margin: 0 auto;
+      display: grid;
+      gap: 12px;
+    }
+
+    .faq-item {
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #111111;
+      overflow: clip;
+    }
+
+    .faq-button {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      color: var(--text);
+      text-align: left;
+      font: inherit;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .faq-button:hover {
+      background: #151515;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+      color: var(--muted);
+      padding: 0 20px;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 140px;
+      padding-bottom: 18px;
+    }
+
+    .contact {
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #161616, #0f0f0f);
+      padding: clamp(24px, 4vw, 42px);
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 20px;
+    }
+
+    .contact p {
+      color: var(--muted);
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 10px;
+    }
+
+    .contact-form label {
+      font-size: 0.9rem;
+      color: #d5d5d5;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #2b2b2b;
+      background: #0a0a0a;
+      color: var(--text);
+      padding: 12px 14px;
+      font: inherit;
+      resize: vertical;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      margin-top: 90px;
+    }
+
+    .footer-inner {
+      min-height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .header-nav {
+        display: none;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .workflow,
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quote-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      section {
+        padding: 72px 0;
+      }
+
+      .hero {
+        padding-top: 74px;
+      }
+
+      .stats,
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        width: 100%;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand" aria-label="Live Shield home">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>LIVE SHIELD</span>
+      </a>
+      <nav class="header-nav" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#workflow">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="btn btn-primary" href="#contact">Request Demo</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <span class="hero-pill">AI-powered content protection for modern livestream teams</span>
+        <h1>Stop stolen streams before they steal your audience and revenue.</h1>
+        <p>
+          Live Shield detects unauthorized rebroadcasts in real time, launches rapid takedowns,
+          and gives your team visibility across every major platform from one dashboard.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">Start Protecting Streams</a>
+          <a class="btn btn-secondary" href="#features">Explore Platform</a>
+        </div>
+
+        <div class="stats" aria-label="Key impact metrics">
+          <div class="stat">
+            <strong>97%</strong>
+            <span>Average infringement removal within 15 minutes</span>
+          </div>
+          <div class="stat">
+            <strong>24/7</strong>
+            <span>Continuous monitoring across social and video platforms</span>
+          </div>
+          <div class="stat">
+            <strong>3.2M+</strong>
+            <span>Unauthorized clips and streams detected to date</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <div class="section-head">
+          <h2>Everything needed to protect your live content at scale</h2>
+          <p>
+            Build trust with audiences and sponsors while our platform handles monitoring,
+            evidence, and enforcement in one place.
+          </p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">01</span>
+            <h3>Instant Detection</h3>
+            <p>
+              Visual fingerprinting and audio matching identify stolen streams the moment they go live.
+            </p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">02</span>
+            <h3>Automated Takedowns</h3>
+            <p>
+              Trigger platform-specific takedown workflows automatically with pre-approved legal templates.
+            </p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">03</span>
+            <h3>Evidence Archive</h3>
+            <p>
+              Preserve screenshots, metadata, and timestamps to support escalation and rights management.
+            </p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon" aria-hidden="true">04</span>
+            <h3>Live Reporting</h3>
+            <p>
+              Track infringement volume, response time, and regional spread through real-time dashboards.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow">
+      <div class="container">
+        <div class="section-head">
+          <h2>How Live Shield works</h2>
+          <p>
+            Deploy in hours and route alerts to your legal, moderation, or operations teams.
+          </p>
+        </div>
+        <div class="workflow">
+          <article class="panel">
+            <h3>1. Connect your channels</h3>
+            <p>
+              Securely connect livestream sources, schedule high-value events, and define protection rules.
+            </p>
+          </article>
+          <article class="panel">
+            <h3>2. Monitor and detect</h3>
+            <p>
+              Our engine scans web, social, and streaming destinations around the clock for copied broadcasts.
+            </p>
+          </article>
+          <article class="panel">
+            <h3>3. Enforce and report</h3>
+            <p>
+              Act immediately with takedown automation and share outcome reports with rights holders and sponsors.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Customer testimonials">
+      <div class="container">
+        <div class="section-head">
+          <h2>Trusted by teams where downtime and piracy are expensive</h2>
+        </div>
+        <div class="quote-grid">
+          <blockquote>
+            <p>
+              "Within the first month we reduced rebroadcast losses by over 60%. Live Shield turned
+              a reactive process into a real-time operation."
+            </p>
+            <cite>Head of Broadcast Security, Aurora Sports Network</cite>
+          </blockquote>
+          <blockquote>
+            <p>
+              "Their alerting pipeline plugs directly into our moderation stack. We now catch most
+              stolen feeds before they trend."
+            </p>
+            <cite>Operations Director, Arena Live Events</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="container">
+        <div class="section-head">
+          <h2>Flexible plans for creators, agencies, and enterprise teams</h2>
+          <p>No long-term lock-ins. Scale protection based on event volume and risk profile.</p>
+        </div>
+        <div class="pricing-grid">
+          <article class="pricing-card">
+            <h3>Starter</h3>
+            <p class="price">$99 <small>/ month</small></p>
+            <ul>
+              <li>Up to 2 channels monitored</li>
+              <li>Live event scanning</li>
+              <li>Email takedown reports</li>
+            </ul>
+            <a class="btn btn-secondary" href="#contact">Get Started</a>
+          </article>
+          <article class="pricing-card featured">
+            <h3>Growth</h3>
+            <p class="price">$349 <small>/ month</small></p>
+            <ul>
+              <li>Up to 10 channels monitored</li>
+              <li>Automated takedown workflows</li>
+              <li>API and Slack notifications</li>
+            </ul>
+            <a class="btn btn-primary" href="#contact">Book a Demo</a>
+          </article>
+          <article class="pricing-card">
+            <h3>Enterprise</h3>
+            <p class="price">Custom</p>
+            <ul>
+              <li>Unlimited channels and events</li>
+              <li>Dedicated success manager</li>
+              <li>Custom policy and legal routing</li>
+            </ul>
+            <a class="btn btn-secondary" href="#contact">Contact Sales</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head">
+          <h2>Frequently asked questions</h2>
+        </div>
+        <div class="faq" role="list">
+          <div class="faq-item open" role="listitem">
+            <button class="faq-button" type="button" aria-expanded="true">
+              Which platforms do you monitor?
+              <span aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              We continuously monitor major livestream, social, and video destinations, including
+              open web embeds and mirror sites commonly used for rebroadcasting.
+            </div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-button" type="button" aria-expanded="false">
+              How quickly are takedowns initiated?
+              <span aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              For supported platforms, takedown workflows begin automatically once confidence thresholds
+              are met. Most incidents are submitted within minutes of first detection.
+            </div>
+          </div>
+          <div class="faq-item" role="listitem">
+            <button class="faq-button" type="button" aria-expanded="false">
+              Do you provide legal evidence records?
+              <span aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              Yes. Every detected infringement includes downloadable evidence packs with snapshots,
+              URLs, timestamps, and chain-of-custody metadata.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact">
+          <div>
+            <h2>Protect your next livestream event</h2>
+            <p>
+              Tell us about your content schedule and current enforcement workflow. We will share a custom
+              rollout plan and risk assessment within one business day.
+            </p>
+            <p><strong>Email:</strong> hello@live-shield.com</p>
+          </div>
+          <form class="contact-form" action="#" method="post">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your full name" required>
+
+            <label for="email">Work Email</label>
+            <input id="email" name="email" type="email" placeholder="name@company.com" required>
+
+            <label for="message">How can we help?</label>
+            <textarea id="message" name="message" rows="4" placeholder="Tell us about your streams"></textarea>
+
+            <button class="btn btn-primary" type="submit">Request Protection Plan</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Copyright <span id="year"></span> Live Shield. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const yearTarget = document.getElementById("year");
+    if (yearTarget) {
+      yearTarget.textContent = String(new Date().getFullYear());
+    }
+
+    document.querySelectorAll(".faq-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const item = button.closest(".faq-item");
+        if (!item) return;
+
+        const isOpen = item.classList.contains("open");
+
+        document.querySelectorAll(".faq-item").forEach((entry) => {
+          entry.classList.remove("open");
+          const trigger = entry.querySelector(".faq-button");
+          if (trigger) {
+            trigger.setAttribute("aria-expanded", "false");
+          }
+        });
+
+        if (!isOpen) {
+          item.classList.add("open");
+          button.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

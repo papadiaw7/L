@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Shield | Private Trial Signup</title>
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: #121212;
+      --line: #2a2a2a;
+      --text: #f4f4f4;
+      --muted: #b6b6b6;
+      --accent: #ff4343;
+      --accent-soft: #ff6d6d;
+      --ok: #9ae6b4;
+      --err: #ff9a9a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at 10% -10%, #2a0f0f, transparent 35%), var(--bg);
+    }
+
+    .wrap {
+      width: min(100% - 40px, 980px);
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-decoration: none;
+      color: inherit;
+      margin-bottom: 24px;
+    }
+
+    .brand img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: linear-gradient(180deg, #171717, #0f0f0f);
+      padding: clamp(22px, 4vw, 34px);
+    }
+
+    .locked {
+      display: none;
+      text-align: center;
+    }
+
+    .locked.show {
+      display: block;
+    }
+
+    .locked h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+    }
+
+    .locked p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .content.hide {
+      display: none;
+    }
+
+    .top-copy {
+      margin-bottom: 20px;
+    }
+
+    .top-copy h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+      letter-spacing: -0.02em;
+    }
+
+    .top-copy p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .benefits {
+      list-style: none;
+      margin: 14px 0 0;
+      padding: 0;
+      color: #dfdfdf;
+      display: grid;
+      gap: 6px;
+      font-size: 0.95rem;
+    }
+
+    .benefits li::before {
+      content: "✓";
+      margin-right: 8px;
+      color: var(--accent-soft);
+      font-weight: 700;
+    }
+
+    .trial-form {
+      display: grid;
+      gap: 11px;
+      margin-top: 20px;
+    }
+
+    .trial-form label {
+      font-size: 0.9rem;
+      color: #dadada;
+    }
+
+    .trial-form input,
+    .trial-form select,
+    .trial-form textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #323232;
+      background: #0b0b0b;
+      color: var(--text);
+      font: inherit;
+      padding: 12px 14px;
+    }
+
+    .trial-form textarea {
+      resize: vertical;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 6px;
+      color: #d8d8d8;
+      font-size: 0.9rem;
+    }
+
+    .checkbox-row input {
+      margin-top: 2px;
+      width: auto;
+    }
+
+    .btn {
+      margin-top: 6px;
+      border: 0;
+      border-radius: 12px;
+      padding: 13px 16px;
+      background: linear-gradient(125deg, var(--accent), var(--accent-soft));
+      color: #fff;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 0 26px rgba(255, 67, 67, 0.3);
+    }
+
+    .btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .status {
+      margin: 4px 0 0;
+      min-height: 22px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .status.success {
+      color: var(--ok);
+    }
+
+    .status.error {
+      color: var(--err);
+    }
+
+    .foot {
+      margin-top: 20px;
+      color: #9f9f9f;
+      font-size: 0.84rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <a href="/" class="brand" aria-label="Live Shield home">
+      <img src="../assets/logos/live-shield-mark.png" alt="Live Shield mark">
+      <span>LIVE SHIELD</span>
+    </a>
+
+    <section class="panel locked" id="locked-view" aria-live="polite">
+      <h1>Private signup link required</h1>
+      <p>This trial signup page is invite-only. Please use the full private link shared by Live Shield.</p>
+    </section>
+
+    <section class="panel content" id="content-view">
+      <div class="top-copy">
+        <h1>Start your private 30-day trial</h1>
+        <p>Complete this form to activate monitoring for your channels. You will receive an automatic confirmation email after submission.</p>
+        <ul class="benefits">
+          <li>We scan YouTube for unauthorized uploads of Twitch and Kick streams</li>
+          <li>No passwords, private login access, or API keys are required</li>
+          <li>Response updates and reporting are included during your trial</li>
+        </ul>
+      </div>
+
+      <form id="trial-form" class="trial-form" action="https://formspree.io/f/mbdaornw" method="POST">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="channel">Channel / Stream Link *</label>
+        <input type="url" id="channel" name="channel" placeholder="https://twitch.tv/yourchannel" required>
+
+        <label for="platform">Primary Platform *</label>
+        <select id="platform" name="platform" required>
+          <option value="">Select platform</option>
+          <option value="Twitch">Twitch</option>
+          <option value="Kick">Kick</option>
+          <option value="YouTube">YouTube</option>
+          <option value="TikTok Live">TikTok Live</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label for="frequency">How often do you stream? (optional)</label>
+        <input type="text" id="frequency" name="frequency" placeholder="e.g., 3 times per week">
+
+        <label for="notes">Anything we should know? (optional)</label>
+        <textarea id="notes" name="notes" rows="4" placeholder="Share stream schedule or special events"></textarea>
+
+        <label class="checkbox-row" for="authorization">
+          <input type="checkbox" id="authorization" name="authorization" value="confirmed" required>
+          <span>
+            I confirm that I am the owner or authorized representative of this content and authorize
+            Live Shield to monitor public activity and submit platform notices on my behalf during this trial.
+          </span>
+        </label>
+
+        <input type="hidden" name="_subject" value="New Live Shield Trial Signup">
+        <input type="hidden" name="_autoresponse" value="Your Live Shield 30-day trial request has been confirmed. We will contact you shortly with your onboarding steps.">
+        <input type="hidden" name="form_type" value="private_trial_signup">
+        <input type="text" name="_gotcha" style="display:none">
+
+        <button id="submit-btn" class="btn" type="submit">Activate 30-Day Trial</button>
+        <p id="form-status" class="status" aria-live="polite"></p>
+      </form>
+
+      <p class="foot">By submitting this form you agree to be contacted about trial onboarding at hello@live-shield.com.</p>
+    </section>
+  </main>
+
+  <script>
+    const REQUIRED_ACCESS_TOKEN = "ls_trial_invite_7mQ9r2Kx3P";
+    const params = new URLSearchParams(window.location.search);
+    const isAuthorized = params.get("access") === REQUIRED_ACCESS_TOKEN;
+
+    const lockedView = document.getElementById("locked-view");
+    const contentView = document.getElementById("content-view");
+
+    if (!isAuthorized) {
+      lockedView.classList.add("show");
+      contentView.classList.add("hide");
+    }
+
+    const trialForm = document.getElementById("trial-form");
+    const submitButton = document.getElementById("submit-btn");
+    const formStatus = document.getElementById("form-status");
+
+    if (trialForm && isAuthorized) {
+      trialForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (submitButton) {
+          submitButton.disabled = true;
+        }
+        if (formStatus) {
+          formStatus.textContent = "Submitting your trial request...";
+          formStatus.className = "status";
+        }
+
+        try {
+          const response = await fetch(trialForm.action, {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+            },
+            body: new FormData(trialForm),
+          });
+
+          if (response.ok) {
+            trialForm.reset();
+            if (formStatus) {
+              formStatus.textContent = "Trial confirmed. A confirmation email has been sent with next steps.";
+              formStatus.className = "status success";
+            }
+          } else {
+            let message = "We could not submit the form right now. Please try again.";
+            try {
+              const result = await response.json();
+              if (result && Array.isArray(result.errors) && result.errors[0] && result.errors[0].message) {
+                message = result.errors[0].message;
+              }
+            } catch (_error) {
+              // Keep default fallback message if response body is not JSON.
+            }
+
+            if (formStatus) {
+              formStatus.textContent = message;
+              formStatus.className = "status error";
+            }
+          }
+        } catch (_error) {
+          if (formStatus) {
+            formStatus.textContent = "Network issue while submitting. Please try again in a moment.";
+            formStatus.className = "status error";
+          }
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

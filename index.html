@@ -136,6 +136,13 @@
       box-shadow: 0 0 32px rgba(255, 67, 67, 0.5);
     }
 
+    .btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
     .btn-secondary {
       border-color: var(--line);
       background: rgba(255, 255, 255, 0.02);
@@ -457,6 +464,21 @@
       padding: 12px 14px;
       font: inherit;
       resize: vertical;
+    }
+
+    .form-status {
+      margin: 4px 0 0;
+      font-size: 0.92rem;
+      color: var(--muted);
+      min-height: 22px;
+    }
+
+    .form-status.success {
+      color: #9ae6b4;
+    }
+
+    .form-status.error {
+      color: #ff9a9a;
     }
 
     .site-footer {
@@ -782,6 +804,7 @@
             <textarea id="message" name="message" rows="4" placeholder="Tell us about your streams"></textarea>
 
             <button class="btn btn-primary" type="submit">Request Free Demo</button>
+            <p class="form-status" id="form-status" aria-live="polite"></p>
           </form>
         </div>
       </div>
@@ -803,6 +826,75 @@
     const yearTarget = document.getElementById("year");
     if (yearTarget) {
       yearTarget.textContent = String(new Date().getFullYear());
+    }
+
+    const contactForm = document.querySelector(".contact-form");
+    const formStatus = document.getElementById("form-status");
+    const submitButton = contactForm ? contactForm.querySelector("button[type='submit']") : null;
+
+    if (contactForm) {
+      contactForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const endpoint = (contactForm.getAttribute("action") || "").trim();
+        if (!endpoint) {
+          if (formStatus) {
+            formStatus.textContent = "Form endpoint is not configured.";
+            formStatus.className = "form-status error";
+          }
+          return;
+        }
+
+        if (submitButton) {
+          submitButton.disabled = true;
+        }
+        if (formStatus) {
+          formStatus.textContent = "Submitting...";
+          formStatus.className = "form-status";
+        }
+
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+            },
+            body: new FormData(contactForm),
+          });
+
+          if (response.ok) {
+            contactForm.reset();
+            if (formStatus) {
+              formStatus.textContent = "Thank you. Your request was submitted successfully.";
+              formStatus.className = "form-status success";
+            }
+          } else {
+            let message = "Submission failed. Please try again in a moment.";
+            try {
+              const result = await response.json();
+              if (result && Array.isArray(result.errors) && result.errors[0] && result.errors[0].message) {
+                message = result.errors[0].message;
+              }
+            } catch (_error) {
+              // Keep default message when response is not JSON.
+            }
+
+            if (formStatus) {
+              formStatus.textContent = message;
+              formStatus.className = "form-status error";
+            }
+          }
+        } catch (_error) {
+          if (formStatus) {
+            formStatus.textContent = "Network error while submitting. Please check your connection.";
+            formStatus.className = "form-status error";
+          }
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+          }
+        }
+      });
     }
 
     document.querySelectorAll("[data-logo-src]").forEach((card) => {

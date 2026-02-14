@@ -369,6 +369,28 @@
       gap: 16px;
     }
 
+    .workflow-visual {
+      margin-bottom: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #111111, #0d0d0d);
+      padding: clamp(8px, 2vw, 14px);
+    }
+
+    .workflow-visual img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+    }
+
+    .workflow-note {
+      margin: 0 0 18px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.94rem;
+    }
+
     .workflow .panel h3 {
       margin-top: 0;
       margin-bottom: 8px;
@@ -742,6 +764,14 @@
             Setup is simple and you never need to share account credentials or channel logins.
           </p>
         </div>
+        <div class="workflow-visual">
+          <img
+            src="assets/graphics/live-shield-workflow.png"
+            alt="Workflow graphic showing stream monitoring, copy detection, action sent, and report delivery"
+            loading="lazy"
+          >
+        </div>
+        <p class="workflow-note">From detection to action and reporting, your team gets a clear workflow from day one.</p>
         <div class="workflow">
           <article class="panel">
             <h3>1. No account access needed</h3>

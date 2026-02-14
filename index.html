@@ -263,34 +263,6 @@
       gap: 16px;
     }
 
-    .logo-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .logo-item {
-      margin: 0;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      min-height: 112px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: transparent;
-      padding: 12px;
-    }
-
-    .logo-item img {
-      max-width: 100%;
-      max-height: 90px;
-      object-fit: contain;
-    }
-
-    .logo-item.logo-mark img {
-      transform: scale(1.1);
-    }
-
     .logo-fallback {
       display: none;
       color: #d8d8d8;
@@ -525,10 +497,6 @@
         grid-template-columns: 1fr;
       }
 
-      .logo-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
       .demo-banner {
         flex-direction: column;
         align-items: flex-start;
@@ -550,10 +518,6 @@
 
       .stats,
       .feature-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .logo-grid {
         grid-template-columns: 1fr;
       }
 
@@ -631,28 +595,6 @@
             <strong>3.2M+</strong>
             <span>Copyright matches reviewed to date</span>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section aria-label="Brand logos">
-      <div class="container">
-        <div class="section-head">
-          <h2>Official Live Shield logos</h2>
-          <p>
-            Your icon mark and full lockup are now featured in a polished layout for website,
-            media, and partnership usage.
-          </p>
-        </div>
-        <div class="logo-grid">
-          <figure class="logo-item logo-loader logo-mark" data-logo-src="assets/logos/live-shield-mark.png">
-            <img alt="Live Shield icon mark" loading="lazy">
-            <span class="logo-fallback">Icon mark</span>
-          </figure>
-          <figure class="logo-item logo-loader" data-logo-src="assets/logos/live-shield-logo.png">
-            <img alt="Live Shield full logo lockup" loading="lazy">
-            <span class="logo-fallback">Full logo</span>
-          </figure>
         </div>
       </div>
     </section>
@@ -825,8 +767,16 @@
             <label for="name">Name</label>
             <input id="name" name="name" type="text" placeholder="Your full name" required>
 
-            <label for="email">Work Email</label>
-            <input id="email" name="email" type="email" placeholder="name@company.com" required>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="name@example.com" required>
+
+            <label for="channel-links">Channel Links</label>
+            <input
+              id="channel-links"
+              name="channel-links"
+              type="text"
+              placeholder="https://youtube.com/@yourchannel, https://twitch.tv/yourchannel"
+            >
 
             <label for="message">How can we help?</label>
             <textarea id="message" name="message" rows="4" placeholder="Tell us about your streams"></textarea>

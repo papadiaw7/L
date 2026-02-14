@@ -161,7 +161,14 @@
 
     .hero {
       padding-top: 96px;
-      text-align: center;
+      text-align: left;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 22px;
+      align-items: start;
     }
 
     .hero-pill {
@@ -178,8 +185,8 @@
     }
 
     .hero-lockup {
-      max-width: 500px;
-      margin: 0 auto 16px;
+      max-width: 420px;
+      margin: 0 0 16px;
       min-height: 0;
       border: 0;
       border-radius: 0;
@@ -197,10 +204,10 @@
     }
 
     .hero h1 {
-      margin: 0 auto 16px;
+      margin: 0 0 16px;
       font-size: clamp(2rem, 4.8vw, 4.3rem);
       line-height: 1.05;
-      max-width: 960px;
+      max-width: 680px;
       letter-spacing: -0.03em;
       background: linear-gradient(90deg, #ffffff 5%, #ffc3c3 45%, #ff5353 85%);
       -webkit-background-clip: text;
@@ -208,22 +215,60 @@
     }
 
     .hero p {
-      margin: 0 auto;
-      max-width: 760px;
+      margin: 0;
+      max-width: 640px;
       color: var(--muted);
       font-size: clamp(1rem, 2.1vw, 1.26rem);
+    }
+
+    .hero-points {
+      list-style: none;
+      margin: 20px 0 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+      color: #d9d9d9;
+      font-size: 0.98rem;
+    }
+
+    .hero-points li::before {
+      content: "✓";
+      margin-right: 8px;
+      color: #ff8b8b;
+      font-weight: 700;
     }
 
     .hero-actions {
       margin-top: 34px;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 12px;
       flex-wrap: wrap;
     }
 
+    .hero-card {
+      border-radius: 18px;
+      border: 1px solid #4d2424;
+      background: linear-gradient(180deg, #191212, #120f0f);
+      box-shadow: 0 0 45px rgba(255, 67, 67, 0.18);
+      padding: 22px;
+    }
+
+    .hero-card h2 {
+      margin: 0;
+      font-size: clamp(1.28rem, 2.2vw, 1.6rem);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: none;
+    }
+
     .stats {
-      margin-top: 48px;
+      margin-top: 24px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
@@ -405,17 +450,18 @@
       padding-bottom: 18px;
     }
 
-    .contact {
+    .final-cta {
       border-radius: 22px;
       border: 1px solid var(--line);
       background: linear-gradient(180deg, #161616, #0f0f0f);
       padding: clamp(24px, 4vw, 42px);
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       gap: 20px;
     }
 
-    .contact p {
+    .final-cta p {
       color: var(--muted);
     }
 
@@ -482,6 +528,10 @@
         display: none;
       }
 
+      .hero-layout {
+        grid-template-columns: 1fr;
+      }
+
       .feature-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -495,8 +545,9 @@
         align-items: flex-start;
       }
 
-      .contact {
-        grid-template-columns: 1fr;
+      .final-cta {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
 
@@ -507,6 +558,20 @@
 
       .hero {
         padding-top: 74px;
+      }
+
+      .hero,
+      .hero h1,
+      .hero p {
+        text-align: center;
+      }
+
+      .hero-lockup {
+        margin: 0 auto 16px;
+      }
+
+      .hero-points {
+        text-align: left;
       }
 
       .stats,
@@ -548,31 +613,66 @@
         <a href="#features">Features</a>
         <a href="#workflow">How It Works</a>
         <a href="#faq">FAQ</a>
-        <a href="#demo">Free Demo</a>
+        <a href="#request-demo-form">Request Demo</a>
       </nav>
-      <a class="btn btn-primary" href="#contact">Request Free 30-Day Demo</a>
+      <a class="btn btn-primary" href="#request-demo-form">Request Free 30-Day Demo</a>
     </div>
   </header>
 
   <main id="top">
     <section class="hero">
       <div class="container">
-        <span class="hero-pill">Built for streamers, creators, and YouTubers</span>
-        <div
-          class="hero-lockup logo-loader"
-          data-logo-src="assets/logos/live-shield-logo.png"
-        >
-          <img alt="Live Shield logo lockup" loading="eager">
-          <span class="logo-fallback">Live Shield</span>
-        </div>
-        <h1>Protect your streams while we monitor and enforce your rights 24/7.</h1>
-        <p>
-          We scan YouTube in real time to detect reposts and rebroadcasts of Twitch and Kick streams,
-          then help creators and streamers take action quickly with clear updates.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Request a Free 30-Day Demo</a>
-          <a class="btn btn-secondary" href="#workflow">See Enforcement Workflow</a>
+        <div class="hero-layout">
+          <div class="hero-copy">
+            <span class="hero-pill">Built for streamers, creators, and YouTubers</span>
+            <div
+              class="hero-lockup logo-loader"
+              data-logo-src="assets/logos/live-shield-logo.png"
+            >
+              <img alt="Live Shield logo lockup" loading="eager">
+              <span class="logo-fallback">Live Shield</span>
+            </div>
+            <h1>Get your streams protected in days, not weeks.</h1>
+            <p>
+              We scan YouTube in real time to detect reposts and rebroadcasts of Twitch and Kick streams,
+              then help creators take fast action before views and revenue are lost.
+            </p>
+            <ul class="hero-points">
+              <li>No passwords, channel logins, or API keys required</li>
+              <li>Purpose-built for streamers, creators, and YouTubers</li>
+              <li>Free 30-day demo with real detection and reporting</li>
+            </ul>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#request-demo-form">Protect your stream for the next 30 days for free</a>
+              <a class="btn btn-secondary" href="#workflow">See how it works</a>
+            </div>
+          </div>
+
+          <aside class="hero-card" aria-label="Request demo form">
+            <h2>Request your free 30-day demo</h2>
+            <p>Takes about 30 seconds. No credit card and no account login needed.</p>
+            <form id="request-demo-form" class="contact-form" action="https://formspree.io/f/mbdaornw" method="POST">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" required>
+
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="name@example.com" required>
+
+              <label for="channel-links">Channel Links</label>
+              <input
+                id="channel-links"
+                name="channel-links"
+                type="text"
+                placeholder="twitch.tv/yourchannel"
+              >
+
+              <label for="message">Anything we should know? (optional)</label>
+              <textarea id="message" name="message" rows="4" placeholder="Tell us what and when you stream"></textarea>
+
+              <button class="btn btn-primary" type="submit">Request Free Demo</button>
+              <p class="form-status" id="form-status" aria-live="polite"></p>
+            </form>
+          </aside>
         </div>
 
         <div class="stats" aria-label="Key impact metrics">
@@ -613,7 +713,7 @@
             <span class="feature-icon" aria-hidden="true">02</span>
             <h3>Automated Enforcement</h3>
             <p>
-              Launch platform-specific copyright notices quickly, so creators can stay focused on content.
+              We prepare and send platform notices quickly, so creators can stay focused on content.
             </p>
           </article>
           <article class="feature-card">
@@ -675,7 +775,7 @@
               how quickly we detect and handle unauthorized use.
             </p>
           </div>
-          <a class="btn btn-primary" href="#contact">Protect your stream for the next 30 days for free</a>
+          <a class="btn btn-primary" href="#request-demo-form">Protect your stream for the next 30 days for free</a>
         </div>
       </div>
     </section>
@@ -698,22 +798,22 @@
           </div>
           <div class="faq-item" role="listitem">
             <button class="faq-button" type="button" aria-expanded="false">
-              How quickly are enforcement actions initiated?
+              How fast can you flag copies on YouTube?
               <span aria-hidden="true">+</span>
             </button>
             <div class="faq-answer">
-              For supported platforms, enforcement workflows begin automatically once confidence thresholds
-              are met. Most incidents are submitted within minutes of first detection.
+              Most copied uploads are detected within minutes. Once confirmed, we start response
+              workflows right away and keep you updated.
             </div>
           </div>
           <div class="faq-item" role="listitem">
             <button class="faq-button" type="button" aria-expanded="false">
-              Do you provide legal evidence records?
+              Do I need to share my account login details?
               <span aria-hidden="true">+</span>
             </button>
             <div class="faq-answer">
-              Yes. Every detected case includes downloadable evidence packs with snapshots,
-              URLs, timestamps, and chain-of-custody metadata.
+              No. You do not need to share passwords, channel logins, or private account access.
+              We work from publicly available stream and upload activity.
             </div>
           </div>
         </div>
@@ -722,37 +822,17 @@
 
     <section id="contact">
       <div class="container">
-        <div class="contact">
+        <div class="final-cta">
           <div>
-            <h2>Request your free 30-day demo</h2>
+            <h2>Ready to protect your next stream?</h2>
             <p>
-              Tell us what you stream and where you go live. No account logins are required and
-              you do not need to share passwords for us to begin monitoring.
+              Request your free demo and we will start monitoring YouTube for copies of your Twitch
+              and Kick streams. No account access or channel login is required.
             </p>
-            <p><strong>No credit card required.</strong></p>
+            <p><strong>No credit card required. No login required.</strong></p>
             <p><strong>Email:</strong> hello@live-shield.com</p>
           </div>
-          <form class="contact-form" action="https://formspree.io/f/mbdaornw" method="POST">
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" placeholder="Your full name" required>
-
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" placeholder="name@example.com" required>
-
-            <label for="channel-links">Channel Links</label>
-            <input
-              id="channel-links"
-              name="channel-links"
-              type="text"
-              placeholder="twitch.tv/yourchannel"
-            >
-
-            <label for="message">How can we help?</label>
-            <textarea id="message" name="message" rows="4" placeholder="Tell us about your streams"></textarea>
-
-            <button class="btn btn-primary" type="submit">Request Free Demo</button>
-            <p class="form-status" id="form-status" aria-live="polite"></p>
-          </form>
+          <a class="btn btn-primary" href="#request-demo-form">Request Free Demo</a>
         </div>
       </div>
     </section>

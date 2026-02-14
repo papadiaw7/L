@@ -80,8 +80,8 @@
     }
 
     .brand-logo {
-      width: 26px;
-      height: 26px;
+      width: 30px;
+      height: 30px;
       border-radius: 8px;
       display: inline-flex;
       align-items: center;
@@ -94,7 +94,11 @@
     .brand-logo img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+    }
+
+    .brand-logo.logo-mark img {
+      transform: scale(2.2);
     }
 
     .header-nav {
@@ -181,7 +185,7 @@
 
     .hero-lockup img {
       width: 100%;
-      max-height: 64px;
+      max-height: 72px;
       object-fit: contain;
     }
 
@@ -281,6 +285,10 @@
       max-width: 100%;
       max-height: 72px;
       object-fit: contain;
+    }
+
+    .logo-item.logo-mark img {
+      transform: scale(1.35);
     }
 
     .logo-fallback {
@@ -570,9 +578,9 @@
     <div class="container header-inner">
       <a href="#top" class="brand" aria-label="Live Shield home">
         <span
-          class="brand-logo logo-loader"
+          class="brand-logo logo-loader logo-mark"
           aria-hidden="true"
-          data-logo-candidates="live-shield-mark.png,live-shield-mark.jpg,live-shield-mark.jpeg,logo-mark.png,logo-mark.jpg,mark.png,mark.jpg"
+          data-logo-src="assets/logos/live-shield-mark.jpeg"
         >
           <img alt="Live Shield mark" loading="eager">
           <span class="logo-fallback">LS</span>
@@ -595,7 +603,7 @@
         <span class="hero-pill">Professional copyright monitoring and enforcement for livestream teams</span>
         <div
           class="hero-lockup logo-loader"
-          data-logo-candidates="live-shield-logo.png,live-shield-logo.jpg,live-shield-logo.jpeg,live-shield-wordmark.png,live-shield-wordmark.jpg,wordmark.png,wordmark.jpg,logo.png,logo.jpg"
+          data-logo-src="assets/logos/live-shield-logo.jpeg"
         >
           <img alt="Live Shield logo lockup" loading="eager">
           <span class="logo-fallback">Live Shield</span>
@@ -637,11 +645,11 @@
           </p>
         </div>
         <div class="logo-grid">
-          <figure class="logo-item logo-loader" data-logo-candidates="live-shield-mark.png,live-shield-mark.jpg,live-shield-mark.jpeg,logo-mark.png,logo-mark.jpg,mark.png,mark.jpg">
+          <figure class="logo-item logo-loader logo-mark" data-logo-src="assets/logos/live-shield-mark.jpeg">
             <img alt="Live Shield icon mark" loading="lazy">
             <span class="logo-fallback">Icon mark</span>
           </figure>
-          <figure class="logo-item logo-loader" data-logo-candidates="live-shield-logo.png,live-shield-logo.jpg,live-shield-logo.jpeg,live-shield-wordmark.png,live-shield-wordmark.jpg,wordmark.png,wordmark.jpg,logo.png,logo.jpg">
+          <figure class="logo-item logo-loader" data-logo-src="assets/logos/live-shield-logo.jpeg">
             <img alt="Live Shield full logo lockup" loading="lazy">
             <span class="logo-fallback">Full logo</span>
           </figure>
@@ -847,57 +855,24 @@
       yearTarget.textContent = String(new Date().getFullYear());
     }
 
-    document.querySelectorAll("[data-logo-candidates]").forEach((card) => {
+    document.querySelectorAll("[data-logo-src]").forEach((card) => {
       const img = card.querySelector("img");
-      const candidates = (card.dataset.logoCandidates || "")
-        .split(",")
-        .map((entry) => entry.trim())
-        .filter(Boolean);
+      const source = (card.dataset.logoSrc || "").trim();
 
-      if (!img || candidates.length === 0) {
+      if (!img || !source) {
         card.classList.add("is-fallback");
         return;
       }
-
-      const searchPrefixes = ["", "assets/", "assets/logos/", "assets/images/", "logos/", "images/", "img/"];
-      const candidateQueue = [];
-
-      candidates.forEach((candidate) => {
-        const cleanCandidate = candidate.replace(/^\.\//, "").replace(/^\//, "");
-        const candidateVariants = [cleanCandidate];
-
-        searchPrefixes.forEach((prefix) => {
-          candidateVariants.push(`${prefix}${cleanCandidate}`);
-        });
-
-        candidateVariants.forEach((variant) => {
-          if (!candidateQueue.includes(variant)) {
-            candidateQueue.push(variant);
-          }
-        });
-      });
-
-      let currentIndex = 0;
-
-      const tryNextCandidate = () => {
-        if (currentIndex >= candidateQueue.length) {
-          card.classList.add("is-fallback");
-          return;
-        }
-
-        img.src = candidateQueue[currentIndex];
-        currentIndex += 1;
-      };
 
       img.addEventListener("load", () => {
         card.classList.remove("is-fallback");
       });
 
       img.addEventListener("error", () => {
-        tryNextCandidate();
+        card.classList.add("is-fallback");
       });
 
-      tryNextCandidate();
+      img.src = source;
     });
 
     document.querySelectorAll(".faq-button").forEach((button) => {

@@ -235,7 +235,15 @@
         <input type="email" id="email" name="email" required>
 
         <label for="channel">Channel / Stream Link *</label>
-        <input type="url" id="channel" name="channel" placeholder="https://twitch.tv/yourchannel" required>
+        <input
+          type="text"
+          id="channel"
+          name="channel"
+          placeholder="twitch.tv/yourchannel"
+          autocomplete="url"
+          autocapitalize="none"
+          required
+        >
 
         <label for="platform">Primary Platform *</label>
         <select id="platform" name="platform" required>
@@ -290,10 +298,35 @@
     const trialForm = document.getElementById("trial-form");
     const submitButton = document.getElementById("submit-btn");
     const formStatus = document.getElementById("form-status");
+    const channelInput = document.getElementById("channel");
 
     if (trialForm && isAuthorized) {
       trialForm.addEventListener("submit", async (event) => {
         event.preventDefault();
+
+        const rawChannel = channelInput ? channelInput.value.trim() : "";
+        let normalizedChannel = rawChannel;
+
+        if (rawChannel && !/^https?:\/\//i.test(rawChannel)) {
+          normalizedChannel = `https://${rawChannel}`;
+        }
+
+        try {
+          if (!normalizedChannel) {
+            throw new Error("Channel link is required.");
+          }
+          // Validate after normalization to allow entries like twitch.tv/yourchannel.
+          new URL(normalizedChannel);
+          if (channelInput) {
+            channelInput.value = normalizedChannel;
+          }
+        } catch (_error) {
+          if (formStatus) {
+            formStatus.textContent = "Please enter a valid channel link, for example: twitch.tv/yourchannel";
+            formStatus.className = "status error";
+          }
+          return;
+        }
 
         if (submitButton) {
           submitButton.disabled = true;

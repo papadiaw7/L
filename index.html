@@ -68,7 +68,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 14px;
     }
 
     .brand {
@@ -111,6 +111,18 @@
 
     .header-nav a:hover {
       color: var(--text);
+    }
+
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-cta .btn {
+      white-space: nowrap;
+      padding: 10px 14px;
+      font-size: 0.9rem;
     }
 
     .btn {
@@ -574,6 +586,15 @@
     }
 
     @media (max-width: 640px) {
+      .header-inner {
+        gap: 10px;
+      }
+
+      .header-cta .btn {
+        padding: 8px 10px;
+        font-size: 0.82rem;
+      }
+
       section {
         padding: 72px 0;
       }
@@ -637,7 +658,10 @@
         <a href="#faq">FAQ</a>
         <a href="#request-demo-form">Request Demo</a>
       </nav>
-      <a class="btn btn-primary" href="#request-demo-form">Request Free 30-Day Demo</a>
+      <div class="header-cta">
+        <a class="btn btn-secondary" href="/blog/">Blog</a>
+        <a class="btn btn-primary" href="#request-demo-form">Request Free Demo</a>
+      </div>
     </div>
   </header>
 

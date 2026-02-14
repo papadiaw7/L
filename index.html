@@ -6,7 +6,7 @@
   <title>Live Shield | Real-Time Livestream Protection</title>
   <meta
     name="description"
-    content="Live Shield protects creators and brands from stolen livestream content with AI-powered monitoring, rapid takedowns, and transparent reporting."
+    content="Live Shield helps creators and brands enforce livestream copyright with AI-powered monitoring, rapid response workflows, and transparent reporting."
   >
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -230,6 +230,48 @@
       gap: 16px;
     }
 
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .logo-item {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #151515, #0f0f0f);
+      padding: 12px;
+    }
+
+    .logo-item img {
+      max-width: 100%;
+      max-height: 44px;
+      object-fit: contain;
+      filter: grayscale(1) brightness(1.14);
+    }
+
+    .logo-fallback {
+      display: none;
+      color: #d8d8d8;
+      letter-spacing: 0.08em;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .logo-item.is-fallback img {
+      display: none;
+    }
+
+    .logo-item.is-fallback .logo-fallback {
+      display: block;
+    }
+
     .feature-card,
     .panel {
       border: 1px solid var(--line);
@@ -304,49 +346,28 @@
       font-size: 0.93rem;
     }
 
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .pricing-card {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: #101010;
-      padding: 24px;
+    .demo-banner {
+      border-radius: 20px;
+      border: 1px solid #5d2626;
+      background: linear-gradient(180deg, #1b1212, #120f0f);
+      padding: clamp(24px, 4vw, 38px);
       display: flex;
-      flex-direction: column;
-      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 0 40px rgba(255, 67, 67, 0.15);
     }
 
-    .pricing-card.featured {
-      border-color: #6b2525;
-      box-shadow: 0 0 35px rgba(255, 67, 67, 0.16);
-      background: linear-gradient(180deg, #191111, #0f0f0f);
+    .demo-banner h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.5rem, 2.7vw, 2.1rem);
+      letter-spacing: -0.02em;
     }
 
-    .price {
-      font-size: 1.92rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
+    .demo-banner p {
       margin: 0;
-    }
-
-    .price small {
       color: var(--muted);
-      font-size: 0.94rem;
-      font-weight: 500;
-    }
-
-    .pricing-card ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 8px;
-      color: var(--muted);
-      font-size: 0.95rem;
+      max-width: 720px;
     }
 
     .faq {
@@ -460,13 +481,21 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .workflow,
-      .pricing-grid {
+      .workflow {
         grid-template-columns: 1fr;
       }
 
       .quote-grid {
         grid-template-columns: 1fr;
+      }
+
+      .logo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .demo-banner {
+        flex-direction: column;
+        align-items: flex-start;
       }
 
       .contact {
@@ -485,6 +514,10 @@
 
       .stats,
       .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .logo-grid {
         grid-template-columns: 1fr;
       }
 
@@ -514,31 +547,31 @@
       <nav class="header-nav" aria-label="Primary">
         <a href="#features">Features</a>
         <a href="#workflow">How It Works</a>
-        <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
+        <a href="#demo">Free Demo</a>
       </nav>
-      <a class="btn btn-primary" href="#contact">Request Demo</a>
+      <a class="btn btn-primary" href="#contact">Request Free 30-Day Demo</a>
     </div>
   </header>
 
   <main id="top">
     <section class="hero">
       <div class="container">
-        <span class="hero-pill">AI-powered content protection for modern livestream teams</span>
-        <h1>Stop stolen streams before they steal your audience and revenue.</h1>
+        <span class="hero-pill">Professional copyright monitoring and enforcement for livestream teams</span>
+        <h1>Protect your livestream rights with professional, real-time enforcement.</h1>
         <p>
-          Live Shield detects unauthorized rebroadcasts in real time, launches rapid takedowns,
-          and gives your team visibility across every major platform from one dashboard.
+          Live Shield detects unauthorized use in real time, initiates compliant enforcement actions,
+          and gives your team clear visibility across every major platform from one dashboard.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Start Protecting Streams</a>
-          <a class="btn btn-secondary" href="#features">Explore Platform</a>
+          <a class="btn btn-primary" href="#contact">Request a Free 30-Day Demo</a>
+          <a class="btn btn-secondary" href="#workflow">See Enforcement Workflow</a>
         </div>
 
         <div class="stats" aria-label="Key impact metrics">
           <div class="stat">
             <strong>97%</strong>
-            <span>Average infringement removal within 15 minutes</span>
+            <span>Average case handling initiated within 15 minutes</span>
           </div>
           <div class="stat">
             <strong>24/7</strong>
@@ -546,8 +579,38 @@
           </div>
           <div class="stat">
             <strong>3.2M+</strong>
-            <span>Unauthorized clips and streams detected to date</span>
+            <span>Copyright matches reviewed to date</span>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Brand logos">
+      <div class="container">
+        <div class="section-head">
+          <h2>Brand logos integrated across your public presence</h2>
+          <p>
+            Your logos are displayed in a dedicated, responsive format suitable for websites,
+            media kits, and partner references.
+          </p>
+        </div>
+        <div class="logo-grid">
+          <figure class="logo-item" data-logo-candidates="logo.svg,logo.png,logo-primary.svg,logo-primary.png">
+            <img alt="Primary brand logo" loading="lazy">
+            <span class="logo-fallback">Primary logo</span>
+          </figure>
+          <figure class="logo-item" data-logo-candidates="wordmark.svg,wordmark.png,logo-wordmark.svg,logo-wordmark.png">
+            <img alt="Wordmark logo" loading="lazy">
+            <span class="logo-fallback">Wordmark logo</span>
+          </figure>
+          <figure class="logo-item" data-logo-candidates="mark.svg,mark.png,logo-mark.svg,logo-mark.png">
+            <img alt="Brand mark logo" loading="lazy">
+            <span class="logo-fallback">Brand mark</span>
+          </figure>
+          <figure class="logo-item" data-logo-candidates="icon.svg,icon.png,brandmark.svg,brandmark.png">
+            <img alt="Icon logo" loading="lazy">
+            <span class="logo-fallback">Icon logo</span>
+          </figure>
         </div>
       </div>
     </section>
@@ -566,14 +629,14 @@
             <span class="feature-icon" aria-hidden="true">01</span>
             <h3>Instant Detection</h3>
             <p>
-              Visual fingerprinting and audio matching identify stolen streams the moment they go live.
+              Visual fingerprinting and audio matching identify unauthorized usage moments after a stream begins.
             </p>
           </article>
           <article class="feature-card">
             <span class="feature-icon" aria-hidden="true">02</span>
-            <h3>Automated Takedowns</h3>
+            <h3>Automated Enforcement</h3>
             <p>
-              Trigger platform-specific takedown workflows automatically with pre-approved legal templates.
+              Launch platform-specific copyright notices automatically using pre-approved legal templates.
             </p>
           </article>
           <article class="feature-card">
@@ -587,7 +650,7 @@
             <span class="feature-icon" aria-hidden="true">04</span>
             <h3>Live Reporting</h3>
             <p>
-              Track infringement volume, response time, and regional spread through real-time dashboards.
+              Track case volume, response time, and regional patterns through real-time reporting dashboards.
             </p>
           </article>
         </div>
@@ -612,13 +675,13 @@
           <article class="panel">
             <h3>2. Monitor and detect</h3>
             <p>
-              Our engine scans web, social, and streaming destinations around the clock for copied broadcasts.
+              Our engine scans web, social, and streaming destinations around the clock for unauthorized redistribution.
             </p>
           </article>
           <article class="panel">
             <h3>3. Enforce and report</h3>
             <p>
-              Act immediately with takedown automation and share outcome reports with rights holders and sponsors.
+              Act immediately with enforcement automation and share outcome reports with rights holders and sponsors.
             </p>
           </article>
         </div>
@@ -628,20 +691,20 @@
     <section aria-label="Customer testimonials">
       <div class="container">
         <div class="section-head">
-          <h2>Trusted by teams where downtime and piracy are expensive</h2>
+          <h2>Trusted by teams that require professional copyright enforcement</h2>
         </div>
         <div class="quote-grid">
           <blockquote>
             <p>
-              "Within the first month we reduced rebroadcast losses by over 60%. Live Shield turned
-              a reactive process into a real-time operation."
+              "Within the first month we improved response speed by over 60%. Live Shield turned
+              our process into a proactive, real-time operation."
             </p>
             <cite>Head of Broadcast Security, Aurora Sports Network</cite>
           </blockquote>
           <blockquote>
             <p>
-              "Their alerting pipeline plugs directly into our moderation stack. We now catch most
-              stolen feeds before they trend."
+              "Their alerting pipeline plugs directly into our moderation stack. We now resolve most
+              unauthorized copies before they gain significant reach."
             </p>
             <cite>Operations Director, Arena Live Events</cite>
           </blockquote>
@@ -649,43 +712,17 @@
       </div>
     </section>
 
-    <section id="pricing">
+    <section id="demo">
       <div class="container">
-        <div class="section-head">
-          <h2>Flexible plans for creators, agencies, and enterprise teams</h2>
-          <p>No long-term lock-ins. Scale protection based on event volume and risk profile.</p>
-        </div>
-        <div class="pricing-grid">
-          <article class="pricing-card">
-            <h3>Starter</h3>
-            <p class="price">$99 <small>/ month</small></p>
-            <ul>
-              <li>Up to 2 channels monitored</li>
-              <li>Live event scanning</li>
-              <li>Email takedown reports</li>
-            </ul>
-            <a class="btn btn-secondary" href="#contact">Get Started</a>
-          </article>
-          <article class="pricing-card featured">
-            <h3>Growth</h3>
-            <p class="price">$349 <small>/ month</small></p>
-            <ul>
-              <li>Up to 10 channels monitored</li>
-              <li>Automated takedown workflows</li>
-              <li>API and Slack notifications</li>
-            </ul>
-            <a class="btn btn-primary" href="#contact">Book a Demo</a>
-          </article>
-          <article class="pricing-card">
-            <h3>Enterprise</h3>
-            <p class="price">Custom</p>
-            <ul>
-              <li>Unlimited channels and events</li>
-              <li>Dedicated success manager</li>
-              <li>Custom policy and legal routing</li>
-            </ul>
-            <a class="btn btn-secondary" href="#contact">Contact Sales</a>
-          </article>
+        <div class="demo-banner">
+          <div>
+            <h2>Request a full 30-day demo at no cost</h2>
+            <p>
+              Experience Live Shield with guided onboarding, real-time monitoring, and enforcement workflows
+              tailored to your team - completely free of charge.
+            </p>
+          </div>
+          <a class="btn btn-primary" href="#contact">Start Free 30-Day Demo</a>
         </div>
       </div>
     </section>
@@ -703,16 +740,16 @@
             </button>
             <div class="faq-answer">
               We continuously monitor major livestream, social, and video destinations, including
-              open web embeds and mirror sites commonly used for rebroadcasting.
+              open web embeds and mirror sites commonly used for unauthorized redistribution.
             </div>
           </div>
           <div class="faq-item" role="listitem">
             <button class="faq-button" type="button" aria-expanded="false">
-              How quickly are takedowns initiated?
+              How quickly are enforcement actions initiated?
               <span aria-hidden="true">+</span>
             </button>
             <div class="faq-answer">
-              For supported platforms, takedown workflows begin automatically once confidence thresholds
+              For supported platforms, enforcement workflows begin automatically once confidence thresholds
               are met. Most incidents are submitted within minutes of first detection.
             </div>
           </div>
@@ -722,7 +759,7 @@
               <span aria-hidden="true">+</span>
             </button>
             <div class="faq-answer">
-              Yes. Every detected infringement includes downloadable evidence packs with snapshots,
+              Yes. Every detected case includes downloadable evidence packs with snapshots,
               URLs, timestamps, and chain-of-custody metadata.
             </div>
           </div>
@@ -734,11 +771,12 @@
       <div class="container">
         <div class="contact">
           <div>
-            <h2>Protect your next livestream event</h2>
+            <h2>Request your free 30-day demo</h2>
             <p>
               Tell us about your content schedule and current enforcement workflow. We will share a custom
-              rollout plan and risk assessment within one business day.
+              rollout plan and onboarding timeline within one business day at no charge.
             </p>
+            <p><strong>No credit card required.</strong></p>
             <p><strong>Email:</strong> hello@live-shield.com</p>
           </div>
           <form class="contact-form" action="#" method="post">
@@ -751,7 +789,7 @@
             <label for="message">How can we help?</label>
             <textarea id="message" name="message" rows="4" placeholder="Tell us about your streams"></textarea>
 
-            <button class="btn btn-primary" type="submit">Request Protection Plan</button>
+            <button class="btn btn-primary" type="submit">Request Free Demo</button>
           </form>
         </div>
       </div>
@@ -763,7 +801,7 @@
       <span>Copyright <span id="year"></span> Live Shield. All rights reserved.</span>
       <div class="footer-links">
         <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
+        <a href="#demo">Free Demo</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
@@ -774,6 +812,41 @@
     if (yearTarget) {
       yearTarget.textContent = String(new Date().getFullYear());
     }
+
+    document.querySelectorAll("[data-logo-candidates]").forEach((card) => {
+      const img = card.querySelector("img");
+      const candidates = (card.dataset.logoCandidates || "")
+        .split(",")
+        .map((entry) => entry.trim())
+        .filter(Boolean);
+
+      if (!img || candidates.length === 0) {
+        card.classList.add("is-fallback");
+        return;
+      }
+
+      let currentIndex = 0;
+
+      const tryNextCandidate = () => {
+        if (currentIndex >= candidates.length) {
+          card.classList.add("is-fallback");
+          return;
+        }
+
+        img.src = candidates[currentIndex];
+        currentIndex += 1;
+      };
+
+      img.addEventListener("load", () => {
+        card.classList.remove("is-fallback");
+      });
+
+      img.addEventListener("error", () => {
+        tryNextCandidate();
+      });
+
+      tryNextCandidate();
+    });
 
     document.querySelectorAll(".faq-button").forEach((button) => {
       button.addEventListener("click", () => {

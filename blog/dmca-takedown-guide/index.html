@@ -350,6 +350,51 @@ I request removal under applicable copyright policy. My contact email is [YOUR E
   <!--Start of Tawk.to Script-->
   <script type="text/javascript">
     var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    var liveShieldChatIntent = "I would like to protect my streams";
+
+    // Keep the pre-chat starter focused on one high-intent request.
+    Tawk_API.onLoad = function() {
+      Tawk_API.setAttributes(
+        {
+          message: liveShieldChatIntent,
+          "How can I help you?": liveShieldChatIntent,
+          how_can_i_help_you: liveShieldChatIntent
+        },
+        function(_error) {}
+      );
+    };
+
+    Tawk_API.onPrechatSubmit = function(data) {
+      if (!data || typeof data !== "object") {
+        return;
+      }
+
+      data.message = liveShieldChatIntent;
+
+      if (Array.isArray(data.questions)) {
+        var hasHelpQuestion = false;
+
+        data.questions.forEach(function(question) {
+          if (!question || typeof question !== "object") {
+            return;
+          }
+
+          var label = String(question.label || "").toLowerCase();
+          if (label.indexOf("help") !== -1 || label.indexOf("assist") !== -1) {
+            question.answer = liveShieldChatIntent;
+            hasHelpQuestion = true;
+          }
+        });
+
+        if (!hasHelpQuestion) {
+          data.questions.push({
+            label: "How can I help you?",
+            answer: liveShieldChatIntent
+          });
+        }
+      }
+    };
+
     (function() {
       var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
       s1.async = true;
